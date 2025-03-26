@@ -1,0 +1,35 @@
+name: Deploy Project
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+        # should use with: ... if default settings for action need to be changed
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+            node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+  # Note that both jobs test and deploy will run in parallel
+  deploy:
+    # Every job gets its own runner - its own VM that's totally isolated from other machine and jobs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      # should use with: ... if default settings for action need to be changed
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Build project
+        run: npm run build
+      - name: Fake Deploy
+        run: ech "Deploying the app..."
