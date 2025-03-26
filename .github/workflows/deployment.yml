@@ -17,6 +17,8 @@ jobs:
         run: npm test
   # Note that both jobs test and deploy will run in parallel
   deploy:
+  # needs keyword to identify any jobs that must complete successfully before this job will run
+    needs: test
     # Every job gets its own runner - its own VM that's totally isolated from other machine and jobs
     runs-on: ubuntu-latest
     steps:
