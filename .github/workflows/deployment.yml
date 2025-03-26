@@ -32,4 +32,4 @@ jobs:
       - name: Build project
         run: npm run build
       - name: Fake Deploy
-        run: ech "Deploying the app..."
+        run: echo "Deploying the app..."
