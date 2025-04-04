@@ -3,7 +3,19 @@ on:
     pull_request:
         types:
             - opened
+        branches:
+            - main
     workflow_dispatch:
+    push:
+        branches:
+            - main
+            - 'dev-*'   # allows dev-new dev-this-is-new etc. (no slashes)
+            - 'feat/**' # allows feat/new feat/new/button
+        branches-ignore:
+            - dev       # don't run workflow if push is to dev branch
+        paths-ignore:
+            - '.github/workflows/*' # don't run workflow if push made changes to anything in this folder
+
 jobs:
     deploy:
         runs-on: ubuntu-latest
