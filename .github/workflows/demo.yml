@@ -19,7 +19,8 @@ jobs:
       # install dependencies will still always execute, but now one of two things will happen:
       # dependencies will be installed, or ~/.npm folder will be used with cached
       # dependencies if it exists (full re-install not required)
-      # note that cache is stored centrally and available to all jobs
+      
+      # note that cache is stored centrally and available to all jobs and across workflows
         run: npm ci
       # - name: Lint code
       #   run: npm run lint
