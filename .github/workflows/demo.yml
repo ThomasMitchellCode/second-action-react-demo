@@ -9,7 +9,17 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          # package-lock.json is the file containing all project dependencies
+          key: dependendies-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+      # install dependencies will still always execute, but now one of two things will happen:
+      # dependencies will be installed, or ~/.npm folder will be used with cached
+      # dependencies if it exists (full re-install not required)
+      # note that cache is stored centrally and available to all jobs
         run: npm ci
       # - name: Lint code
       #   run: npm run lint
